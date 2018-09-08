@@ -5,17 +5,25 @@ import (
 	"net"
 )
 
-type OrbServer struct {
+type MainServer struct {
 	host  net.IP
 	port  uint16
 	world *World
 }
 
-func (self *OrbServer) BasePath() string {
+func NewMainServer() *MainServer {
+	return &MainServer{
+		host:  net.IPv4(192, 168, 1, 75),
+		port:  9090,
+		world: NewWorld(),
+	}
+}
+
+func (self *MainServer) BasePath() string {
 	return fmt.Sprintf("%s:%d", self.host.String(), self.port)
 }
 
-func (self *OrbServer) Listen() error {
+func (self *MainServer) Listen() error {
 
 	server, err := net.Listen("tcp", self.BasePath())
 	defer server.Close()
@@ -27,7 +35,6 @@ func (self *OrbServer) Listen() error {
 	self.world.Start()
 
 	for {
-
 		conn, err := server.Accept()
 		if err != nil {
 			fmt.Println("Error accepting incoming connection: ", err)
@@ -35,13 +42,5 @@ func (self *OrbServer) Listen() error {
 			self.world.Register(conn)
 		}
 
-	}
-}
-
-func NewOrbServer() *OrbServer {
-	return &OrbServer{
-		host:  net.IPv4(192, 168, 1, 75),
-		port:  9090,
-		world: NewWorld(),
 	}
 }
