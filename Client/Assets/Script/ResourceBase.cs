@@ -8,6 +8,6 @@ public class ResourceBase {
     public readonly long id;
 
     public ResourceBase(JSONNode jNode) {
-        this.id = jNode["ID"];
+        this.id = jNode["ID"].AsInt;
     }
 }

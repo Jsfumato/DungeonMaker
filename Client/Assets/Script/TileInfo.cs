@@ -19,7 +19,7 @@ public class TileInfo : MonoBehaviour {
     private int _level;
     private long _settedUnitID;
 
-    public void Initialize(TileType type, ) {
+    public void Initialize(TileType type) {
         _tileType = type;
     }
 

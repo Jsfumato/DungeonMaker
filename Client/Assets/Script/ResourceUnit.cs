@@ -8,6 +8,6 @@ public class ResourceUnit : ResourceBase {
     public GameObject prefabUnit;
 
     public ResourceUnit(JSONNode jNode) :base(jNode){
-        prefabUnit = Resources.LoadAsync<GameObject>(jNode["Prefab"]).;
+        prefabUnit = Utility.LoadResource<GameObject>(jNode["Prefab"]);
     }
 }
